@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\AuthenticationController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\merchant\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +36,8 @@ Route::prefix('/merchant')->middleware(['auth', 'role:0'])->group(function() {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('pages.merchant.profile');
     Route::post('/update_profile', [ProfileController::class, 'update'])->name('pages.merchant.update_profile');
+
+    Route::get('/products', [ProductController::class, 'index'])->name('pages.merchant.products');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('pages.merchant.products.create');
+    Route::post('/products/store', [ProductController::class, 'store'])->name('pages.merchant.products.store');
 });

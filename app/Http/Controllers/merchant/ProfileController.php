@@ -32,7 +32,6 @@ class ProfileController extends Controller
         $user = User::find(Auth::user()->id);
         $user->update($request->all());
 
-        // Auth::setUser($user);
 
         return redirect()->back()->with('success', 'Profile updated successfully');
     }

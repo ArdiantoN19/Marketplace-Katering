@@ -27,11 +27,11 @@ class AuthenticationController extends Controller
             $request->session()->regenerate();
             
             if (Auth::user()->role == 0) {
-                return redirect()->intended('/merchant/dashboard');
+                return redirect()->intended('/merchant/dashboard')->with('success', 'Login success');
             }
 
             if (Auth::user()->role == 1) {
-                return redirect()->intended('/customer/dashboard');
+                return redirect()->intended('/customer/dashboard')->with('success', 'Login success');
             }
         }
 
