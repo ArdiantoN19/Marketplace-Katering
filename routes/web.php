@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthenticationController;
 use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\customer\ProductController as CustomerProductController;
 use App\Http\Controllers\merchant\ProfileController;
 use App\Http\Controllers\merchant\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,10 @@ Route::prefix('/merchant')->middleware(['auth', 'role'])->group(function() {
 
 Route::prefix('/customer')->middleware(['auth', 'role'])->group(function() {
     Route::get('/dashboard', function() {
-        return 'dashboard customer';
-    });
+        return view('pages.customer.dashboard.index');
+    })->name('pages.customer.dashboard');
+
+    Route::get('/products', [CustomerProductController::class, 'index'])->name('pages.customer.products');
+    Route::get('/products/{id}', [CustomerProductController::class, 'show'])->name('pages.customer.products.show');
+    Route::post('/products/addToCart/{id}', [CustomerProductController::class, 'addToCart'])->name('pages.customer.products.addToCart');
 });

@@ -28,7 +28,7 @@ class AuthenticationController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
+            session(['user' => Auth::user()]);
             if (Auth::user()->role == 0) {
                 return redirect()->intended('/merchant/dashboard')->with('success', 'Login success');
             }
