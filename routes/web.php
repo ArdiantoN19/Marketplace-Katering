@@ -3,7 +3,7 @@
 use App\Http\Controllers\auth\AuthenticationController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\merchant\ProfileController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\merchant\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +29,7 @@ Route::post('/logout',[AuthenticationController::class, 'logout'])->name('pages.
 Route::get('/register',[RegisterController::class, 'register'])->name('pages.auth.register');
 Route::post('/do_register',[RegisterController::class, 'do_register'])->name('pages.auth.do_register');
 
-Route::prefix('/merchant')->middleware(['auth', 'role:0'])->group(function() {
+Route::prefix('/merchant')->middleware(['auth', 'role'])->group(function() {
     Route::get('/dashboard', function() {
         return view('pages.merchant.dashboard.index');
     })->name('pages.merchant.dashboard');
@@ -44,4 +44,11 @@ Route::prefix('/merchant')->middleware(['auth', 'role:0'])->group(function() {
     Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
     Route::put('/products/edit/{id}', [ProductController::class, 'update'])->name('pages.merchant.products.update');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pages.merchant.products.destroy');
+});
+
+
+Route::prefix('/customer')->middleware(['auth', 'role'])->group(function() {
+    Route::get('/dashboard', function() {
+        return 'dashboard customer';
+    });
 });

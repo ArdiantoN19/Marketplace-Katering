@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+
+    public function __construct()
+    {   
+        $this->middleware('guest', ['except' => ['do_register']]);
+    }
+
     public function register()
     {
         return view('pages.auth.register');

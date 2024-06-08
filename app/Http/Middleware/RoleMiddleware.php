@@ -14,12 +14,16 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role !== $role) {
-            return $next($request);
+        if (Auth::user()->role_id === 0 && in_array('customer', $request->segments())) {
+            return redirect('/')->withErrors(['fail' => 'You do not have permission to access this page.']);
         }
 
-        return redirect('/')->withErrors(['fail' => 'You must be login first.']);
+        if (Auth::user()->role_id === 1 && in_array('merchant', $request->segments())) {
+            return redirect('/')->withErrors(['fail' => 'You do not have permission to access this page.']);
+        }
+
+        return $next($request);
     }
 }
