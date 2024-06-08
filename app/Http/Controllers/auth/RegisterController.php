@@ -30,6 +30,7 @@ class RegisterController extends Controller
             'role' => 'required|in:0,1',
         ]);
 
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -38,7 +39,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role_id' => $request->role,
         ]);
 
         return redirect('/login')->with('success', 'Registration Success');
