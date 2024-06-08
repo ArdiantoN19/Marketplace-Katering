@@ -40,4 +40,8 @@ Route::prefix('/merchant')->middleware(['auth', 'role:0'])->group(function() {
     Route::get('/products', [ProductController::class, 'index'])->name('pages.merchant.products');
     Route::get('/products/create', [ProductController::class, 'create'])->name('pages.merchant.products.create');
     Route::post('/products/store', [ProductController::class, 'store'])->name('pages.merchant.products.store');
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
+    Route::put('/products/edit/{id}', [ProductController::class, 'update'])->name('pages.merchant.products.update');
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pages.merchant.products.destroy');
 });

@@ -26,7 +26,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'required|image|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
@@ -41,16 +41,15 @@ class ProductController extends Controller
         return redirect()->route('pages.merchant.products')->with('success', 'Product created successfully.');
     }
 
-    public function edit(Product $product)
+    public function edit(int $id)
     {
-        $this->authorize('update', $product);
-        return view('products.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('pages.merchant.products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, int $id)
     {
-        $this->authorize('update', $product);
-
+        $product = Product::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -67,18 +66,17 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('pages.merchant.products')->with('success', 'Product updated successfully.');
     }
 
-    public function destroy(Product $product)
+    public function destroy(int $id)
     {
-        $this->authorize('delete', $product);
-
+        $product = Product::findOrFail($id);
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('pages.merchant.products')->with('success', 'Product deleted successfully.');
     }
 }
