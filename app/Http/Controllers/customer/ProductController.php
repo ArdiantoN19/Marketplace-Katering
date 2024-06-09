@@ -32,6 +32,13 @@ class ProductController extends Controller
         $product->quantity = $product->quantity - $request->quantity;
         $product->save();
 
+        $checkIsExistCart = Cart::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first();
+        if($checkIsExistCart) {
+            $checkIsExistCart->quantity = $checkIsExistCart->quantity + $request->quantity;
+            $checkIsExistCart->save();
+            return back()->with('success', 'Success add item to cart');
+        }
+
         Cart::create([
             'user_id'=> Auth::user()->id,
             'product_id' => $product->id,
