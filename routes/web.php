@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthenticationController;
 use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\ProductController as CustomerProductController;
 use App\Http\Controllers\merchant\ProfileController;
 use App\Http\Controllers\merchant\ProductController;
@@ -38,13 +39,15 @@ Route::prefix('/merchant')->middleware(['auth', 'role'])->group(function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('pages.merchant.profile');
     Route::post('/update_profile', [ProfileController::class, 'update'])->name('pages.merchant.update_profile');
 
-    Route::get('/products', [ProductController::class, 'index'])->name('pages.merchant.products');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('pages.merchant.products.create');
-    Route::post('/products/store', [ProductController::class, 'store'])->name('pages.merchant.products.store');
-    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
-    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
-    Route::put('/products/edit/{id}', [ProductController::class, 'update'])->name('pages.merchant.products.update');
-    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pages.merchant.products.destroy');
+    Route::prefix('/products')->group(function() {
+        Route::get('', [ProductController::class, 'index'])->name('pages.merchant.products');
+        Route::get('/create', [ProductController::class, 'create'])->name('pages.merchant.products.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('pages.merchant.products.store');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
+        Route::put('/edit/{id}', [ProductController::class, 'update'])->name('pages.merchant.products.update');
+        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('pages.merchant.products.destroy');
+    });
 });
 
 
@@ -53,7 +56,14 @@ Route::prefix('/customer')->middleware(['auth', 'role'])->group(function() {
         return view('pages.customer.dashboard.index');
     })->name('pages.customer.dashboard');
 
-    Route::get('/products', [CustomerProductController::class, 'index'])->name('pages.customer.products');
-    Route::get('/products/{id}', [CustomerProductController::class, 'show'])->name('pages.customer.products.show');
-    Route::post('/products/addToCart/{id}', [CustomerProductController::class, 'addToCart'])->name('pages.customer.products.addToCart');
+    Route::prefix('/products')->group(function() {
+        Route::get('', [CustomerProductController::class, 'index'])->name('pages.customer.products');
+        Route::get('/{id}', [CustomerProductController::class, 'show'])->name('pages.customer.products.show');
+        Route::post('/addToCart/{id}', [CustomerProductController::class, 'addToCart'])->name('pages.customer.products.addToCart');
+    });
+
+    Route::prefix('/carts')->group(function() {
+        Route::get('', [CartController::class, 'index'])->name('pages.customer.carts');
+        Route::get('/{id}', [CartController::class, 'destroy'])->name('pages.customer.carts.destroy');
+    });
 });

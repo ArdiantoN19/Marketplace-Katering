@@ -41,7 +41,7 @@
                                         </td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->price }}</td>
-                                        <td>{{ $product->description }}</td>
+                                        <td style="width: 500px">{{ $product->description }}</td>
                                         <td>
                                             <a href="{{ route('pages.merchant.products.edit', $product->id) }}"
                                                 class="btn btn-primary">Edit</a>
