@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 @section('content')
-    <div class="container">
+    <div class="container mt-3">
         <h1 class="fw-bold fs-3 text-primary mb-3">Keranjang</h1>
         @error('fail')
             <div class="alert alert-danger alert-dismissible show fade fs-6">

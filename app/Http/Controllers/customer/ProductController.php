@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $search = $request->query('search');
+        $products = Product::when($search, function ($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%");
+        })->paginate(10);
         return view('pages.customer.products.index', compact('products'));
     }
 

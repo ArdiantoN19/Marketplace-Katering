@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 @section('content')
-    <div class="container">
+    <div class="container mt-3">
         <h1 class="fw-bold fs-3 text-primary mb-3">Transaksi</h1>
         <div class="row gap-3">
             @if (!count($transactions))
