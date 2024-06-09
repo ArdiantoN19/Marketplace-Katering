@@ -23,8 +23,8 @@
                                     href="{{ route('pages.customer.products')}}">Produk</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-6 fw-semibold {{Route::is('pages.customer.products') ? 'text-primary' : 'text-body'}}"
-                                    href="{{ route('pages.customer.products')}}">History</a>
+                                <a class="nav-link fs-6 fw-semibold {{Route::is('pages.customer.transactions') ? 'text-primary' : 'text-body'}}"
+                                    href="{{ route('pages.customer.transactions')}}">Transaksi</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('pages.customer.carts')}}" class="nav-link fs-6 fw-semibold {{Route::is('pages.customer.carts') ? 'text-primary' : 'text-body'}}">

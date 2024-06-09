@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+
+    public function index()
+    {
+        $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        $transactionItems = TransactionItem::all();
+        return view('pages.customer.transactions.index', compact('transactions', 'transactionItems'));
+    }
+
     public function store(Request $request)
     {
         $carts = $request->carts;

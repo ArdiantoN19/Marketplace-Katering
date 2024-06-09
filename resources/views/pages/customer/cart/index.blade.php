@@ -1,7 +1,7 @@
 @extends('layouts.customer')
 @section('content')
     <div class="container">
-        <h1 class="fw-bold fs-3 text-primary mb-3">Carts</h1>
+        <h1 class="fw-bold fs-3 text-primary mb-3">Keranjang</h1>
         @error('fail')
             <div class="alert alert-danger alert-dismissible show fade fs-6">
                 {{ $message }}
@@ -19,7 +19,7 @@
             @csrf
             <div class="col-lg-8">
                 @if (!count($carts))
-                    <h3 class="fs-4 text-muted">Cart is empty</h3>
+                    <h3 class="fs-4 text-muted">Keranjang kosong</h3>
                 @else
                     @foreach ($carts as $cart)
                         <div class="card shadow-sm">

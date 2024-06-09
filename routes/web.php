@@ -71,6 +71,7 @@ Route::prefix('/customer')
         });
 
         Route::prefix('/transactions')->group(function () {
+            Route::get('', [TransactionController::class, 'index'])->name('pages.customer.transactions');
             Route::post('', [TransactionController::class, 'store'])->name('pages.customer.transactions.store');
         });
     });
