@@ -24,14 +24,20 @@ class TransactionController extends Controller
         $carts = $request->carts;
         $quantities = $request->quantities;
         $total = $request->total;
+        $date = $request->date;
 
         if(!$carts || !$total) {
             return back()->withErrors(['fail' => 'Please add item to cart first.']);
         }
 
+        if(!$date || $date < date('Y-m-d')) {
+            return back()->withErrors(['fail' => 'Please select a valid date.']);
+        }
+
         $transaction = Transaction::create([
             'total' => $request->total,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'date' => $date
         ]);
 
         foreach($carts as $index => $cart) {

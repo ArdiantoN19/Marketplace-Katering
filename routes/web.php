@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\ProductController as CustomerProductController;
 use App\Http\Controllers\customer\TransactionController;
+use App\Http\Controllers\merchant\OrderController;
 use App\Http\Controllers\merchant\ProfileController;
 use App\Http\Controllers\merchant\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,11 @@ Route::prefix('/merchant')
             Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('pages.merchant.products.edit');
             Route::put('/edit/{id}', [ProductController::class, 'update'])->name('pages.merchant.products.update');
             Route::delete('/{id}', [ProductController::class, 'destroy'])->name('pages.merchant.products.destroy');
+        });
+
+        Route::prefix('/orders')->group(function() {
+            Route::get('', [OrderController::class, 'index'])->name('pages.merchant.orders');
+            Route::post('/{id}', [OrderController::class, 'verify'])->name('pages.merchant.orders.verify');
         });
     });
 

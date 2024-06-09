@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <label class="col-1 text-center">
                                         <input type="checkbox" class="form-check-input" name="carts[]"
-                                        value="{{ $cart->product_id }}" data-price="{{ $cart->product->price }}"
+                                            value="{{ $cart->product_id }}" data-price="{{ $cart->product->price }}"
                                             data-quantity="{{ $cart->quantity }}" />
                                         <input type="hidden" name="quantities[]" value="{{ $cart->quantity }}" />
                                     </label>
@@ -60,11 +60,16 @@
             <div class="col-lg-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-
-                        <h1 class="card-title text-primary fw-bold fs-4 text-capitalize">Total</h1>
-                        <input type="hidden" id="totalHidden" name="total" value="0">
-                        <p class="text-primary fw-bold fs-6 text-warning">Rp <span
-                                id="total">{{ number_format(0) }}</span></p>
+                        <div class="mb-3">
+                            <h3 class="card-title text-primary fw-bold fs-5 text-capitalize">Pilih Tanggal</h3>
+                            <input type="date" name="date" class="form-control" id="date" value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div>
+                            <h3 class="card-title text-primary fw-bold fs-5 text-capitalize">Total</h3>
+                            <input type="hidden" id="totalHidden" name="total" value="0">
+                            <p class="text-primary fw-bold fs-5 text-warning">Rp <span
+                                    id="total">{{ number_format(0) }}</span></p>
+                        </div>
                         <button type="submit" class="btn btn-primary w-100" id="checkout">Checkout</button>
                     </div>
                 </div>
@@ -76,6 +81,8 @@
         const totalEl = document.querySelector('#total');
         const totalHiddenEl = document.querySelector('#totalHidden');
         const checkoutEl = document.querySelector('#checkout');
+        const dateEl = document.querySelector('#date');
+
         let total = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -94,7 +101,7 @@
                 totalEl.textContent = total;
                 totalHiddenEl.value = total;
 
-                if (total > 0) {
+                if (total > 0 && dateEl.value) {
                     checkoutEl.disabled = false
                 } else {
                     checkoutEl.disabled = true
