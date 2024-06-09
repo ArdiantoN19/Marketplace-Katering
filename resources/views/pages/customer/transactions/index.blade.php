@@ -9,16 +9,17 @@
                         <p class="text-muted fs-6 m-0">{{ $transaction->created_at->format('d F Y') }}</p>
                         <h2 class="mb-4">Rp {{ number_format($transaction->total) }}</h2>
                         <button type="button" class="btn btn-primary block btn-sm fs-6" data-bs-toggle="modal"
-                            data-bs-target="#invoiceModal{{$transaction->id}}">
+                            data-bs-target="#invoiceModal{{ $transaction->id }}">
                             Lihat Invoice
                         </button>
-                        <div class="modal fade" id="invoiceModal{{$transaction->id}}" tabindex="-1" aria-labelledby="invoiceModal{{$transaction->id}}Title"
-                            aria-hidden="true" style="display: none;">
+                        <div class="modal fade" id="invoiceModal{{ $transaction->id }}" tabindex="-1"
+                            aria-labelledby="invoiceModal{{ $transaction->id }}Title" aria-hidden="true"
+                            style="display: none;">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                                 role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="invoiceModal{{$transaction->id}}Title">Detail Invoice
+                                        <h5 class="modal-title" id="invoiceModal{{ $transaction->id }}Title">Detail Invoice
                                         </h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -47,9 +48,9 @@
                                                             {{ number_format($transactionItem->product->price) }}</span>
                                                     </div>
                                                 </div>
-                                                <p class="fs-3 mb-0 fw-bold">Total: Rp {{ number_format($transactionItem->product->price * $transactionItem->quantity) }}</p>
                                             @endif
                                         @endforeach
+                                        <p class="fs-3 mb-0 fw-bold">Total: Rp {{ number_format($transaction->total) }}</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
